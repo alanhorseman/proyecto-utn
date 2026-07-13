@@ -102,10 +102,7 @@ class WorkspaceController {
         }
   
         if(valid_roles.length > 0 && !valid_roles.includes(membership.rol)){
-          console.log('valid roles', valid_roles);
-          console.log('member rol', membership.rol);
-          
-          throw new ServerError('No tiene las credenciales validassss', 401)
+          throw new ServerError('No tiene las credenciales validas', 401)
         }
         
         const updated_workspace = await workspaceRepository.updateById(workspace_id, updated_workspace_data)
