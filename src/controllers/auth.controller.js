@@ -57,6 +57,7 @@ class AuthController {
         }
       })
     } catch (error) {
+      
       if (error instanceof ServerError) {
         return res.status(error.status).json({
           ok: false,
