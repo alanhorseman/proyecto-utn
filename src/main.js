@@ -27,6 +27,7 @@ app.use(cors())
 // conexion con la DB
 connectMongoDB()
 
+
 // routes
 app.use('/api/auth', authRouter);
 app.use('/api/workspace', workspaceRouter);
