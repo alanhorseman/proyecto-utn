@@ -106,7 +106,7 @@ class WorkspaceController {
           
           console.log('member rol', membership.rol);
           
-          throw new ServerError('No tiene las credenciales validas', 401)
+          throw new ServerError('No tiene las credenciales validassss', 401)
         }
         
         const updated_workspace = await workspaceRepository.updateById(workspace_id, updated_workspace_data)
