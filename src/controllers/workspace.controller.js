@@ -80,7 +80,7 @@ class WorkspaceController {
     return async function (req, res){
       try {
         const workspace_id = req.params.workspace_id
-        const membership = await workspaceMemberRepository.getByWorkspaceId(workspace_id)
+        const membership = await workspaceMemberRepository.getByUserAndWorkspaceId(req.user.id, workspace_id)
         
         const { nombre, descripcion } = req.body
         
