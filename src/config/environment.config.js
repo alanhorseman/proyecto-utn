@@ -8,6 +8,7 @@ const ENVIRONMENT = {
   GMAIL_USERNAME: process.env.GMAIL_USERNAME,
   GMAIL_PASSWORD: process.env.GMAIL_PASSWORD,
   URL_BACKEND: process.env.URL_BACKEND,
+  URL_FRONTEND: process.env.URL_FRONTEND,
   JWT_SECRET: process.env.JWT_SECRET,
   MODE: process.env.MODE,
   PORT: process.env.PORT
