@@ -251,6 +251,63 @@ class AuthController {
       }
     }
   }
+
+  async resetPasswordConfirm(req, res){
+    try {
+      const { new_password } = req.body;
+      const auth_header = req.headers.authorization;
+
+      if (!auth_header) {
+        throw new ServerError('No hay header de autorizacion', 401)
+      }
+
+      const token_value = auth_header.split(' ')[1]
+
+      if (!new_password || new_password.length < 6) {
+        throw new ServerError('Contraseña debe tener al menos 6 caracteres', 400)
+      }
+
+      const payload = jwt.verify(token_value, ENVIRONMENT.JWT_SECRET)
+
+      const { email } = payload;
+
+      const user_found = await userRepository.getByEmail(email);
+      if (!user_found) {
+        throw new ServerError(`Usuario con email ${email} no encontrado`, 404)
+      }
+
+      const hashed_password = await bcrypt.hash(new_password, 12);
+
+      await userRepository.updateById(user_found._id, { password: hashed_password });
+
+      return res.status(200).json({
+        ok: true,
+        message: 'Contraseña actualizada exitosamente',
+        status: 200
+      })
+
+    } catch (error) {
+      if (error instanceof jwt.JsonWebTokenError || error instanceof jwt.TokenExpiredError || error instanceof jwt.NotBeforeError) {
+        return res.status(401).json({
+          ok: false,
+          message: 'Token invalido o expirado',
+          status: 401
+        })
+      } else if (error instanceof ServerError) {
+        return res.status(error.status).json({
+          ok: false,
+          message: error.message,
+          status: error.status
+        })
+      } else {
+        return res.status(500).json({
+          ok: false,
+          message: "Internal Server Error",
+          status: 500
+        });
+      }
+    }
+  }
 }
 
 const authController = new AuthController();
