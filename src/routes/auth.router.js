@@ -7,5 +7,6 @@ authRouter.post('/register', authController.register)
 authRouter.get('/verify-email', authController.verifyEmail)
 authRouter.post('/login', authController.login)
 authRouter.post('/reset-password-request', authController.resetPasswordRequest)
+authRouter.post('/reset-password-confirm', authController.resetPasswordConfirm)
 
 export default authRouter
