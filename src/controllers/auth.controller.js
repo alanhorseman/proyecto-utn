@@ -223,7 +223,7 @@ class AuthController {
         html: `
           <h1>Restablecer contraseña</h1>
           <p>Para restablecer tu contraseña, haz click en el siguiente enlace:</p>
-          <a href='${frontendUrl}/reset-paswoord?token=${reset_token}'>Restablecer contraseña</a>
+          <a href='${frontendUrl}/reset-paswoord-confirm?token=${reset_token}'>Restablecer contraseña</a>
         `
       })
 
