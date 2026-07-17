@@ -34,13 +34,16 @@ class AuthController {
 
       const verification_token = jwt.sign({ email: email }, ENVIRONMENT.JWT_SECRET)
 
+      const frontendUrl = ENVIRONMENT.URL_FRONTEND || ENVIRONMENT.URL_BACKEND
+
       await mailer_transport.sendMail({
-        from: email,
-        to: ENVIRONMENT.GMAIL_USERNAME,
+        from: ENVIRONMENT.GMAIL_USERNAME,
+        to: email,
         subject: "Verifica tu email",
         html: `
                 <h1>Bienvenido!</h1>
-                <a href='${ENVIRONMENT.URL_BACKEND}/api/auth/verify-email?verification_token=${verification_token}'>Click aqui</a> para verificar para verificar la cuenta
+                <p>Para verificar tu cuenta, haz click en el siguiente enlace:</p>
+                <a href='${frontendUrl}/verify?verification_token=${verification_token}'>Click aqui</a> para verificar correo
             `
       })
 
@@ -96,7 +99,7 @@ class AuthController {
         throw new ServerError('Email ya verificado', 400)
       }
 
-      const user_verify = await userRepository.updateById(user.id, { email_verify: true })
+      const user_verify = await userRepository.updateById(user._id, { email_verify: true })
 
       return res.status(200).json({
         ok: true,
