@@ -230,7 +230,12 @@ class AuthController {
       return res.status(200).json({
         ok: true,
         message: 'Solicitud de restablecimiento enviada',
-        status: 200
+        status: 200,
+        data: {
+          user: {
+            email: user_found.email
+          }
+        }
       })
     } catch (error) {
       if (error instanceof jwt.JsonWebTokenError || error instanceof jwt.TokenExpiredError || error instanceof jwt.NotBeforeError) {
