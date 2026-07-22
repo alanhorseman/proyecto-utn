@@ -28,7 +28,7 @@ class WorkspaceMemberRepository {
       })
 
     return memberships
-      .filter(memb => membt.fk_workspace_id)
+      .filter(memb => memb.fk_workspace_id)
       .map(memb => ({
         member_id: memb._id,
         member_rol: memb.rol,
